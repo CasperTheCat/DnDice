@@ -16,9 +16,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_d20Roll_clicked();
-
-    void on_d12Roll_clicked();
 
 private:
     Ui::MainWindow *ui;
