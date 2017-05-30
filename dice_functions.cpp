@@ -1,7 +1,6 @@
 #include "dice_functions.h"
 #include <algorithm>
 
-typedef uint32_t (*FNCTN_PTR)();
 
 uint32_t roll(FNCTN_PTR dice)
 {
@@ -13,6 +12,14 @@ uint32_t rollMulti(uint32_t rounds, FNCTN_PTR dice)
 	uint32_t ret = 0;
 	for (uint32_t i = 0; i < rounds; ++i)
 		ret += dice();
+	return ret;
+}
+
+uint32_t rollMultiWith(uint32_t rounds, FNCTN_PTR_ARG diceFunction, FNCTN_PTR dice)
+{
+	uint32_t ret = 0;
+	for (uint32_t i = 0; i < rounds; ++i)
+		ret += diceFunction(dice);
 	return ret;
 }
 
