@@ -81,12 +81,37 @@ private slots:
 
     void on_btn_check_sur_clicked();
 
+    void on_other_update_btn_clicked();
+
+    void on_btn_save_str_clicked();
+
+    void on_btn_save_dex_clicked();
+
+    void on_btn_save_con_clicked();
+
+    void on_btn_save_int_clicked();
+
+    void on_btn_save_wis_clicked();
+
+    void on_btn_save_cha_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     // AttributeOverrides
 private:
     uint8_t uAttribMod;
+    uint32_t uMaxHealth;
+    uint32_t uCurrentHealth;
+    uint32_t uExperience;
+
+    // Variables for saving out
+    // Rest read from fields
+    QString qsName;
+    uint32_t uLevel;
+    QString qsRace;
+    QString qsClass;
+
 
 private:
     // Uncheck buttons
@@ -103,6 +128,12 @@ private:
 
     // Generalised function to save space and iteration time
     void run_check(QCheckBox *skill, Attributes defaultAttribute);
+
+    // Used by the 6 saving throw callers
+    void run_save(QCheckBox *skill, Attributes usedAttribute);
+
+    // Used by loader in future
+    void update_top_bar();
 };
 
 #endif // MAINWINDOW_H

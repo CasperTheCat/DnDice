@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+#include "utilities.h"
 #include "dice.h"
 #include "dice_functions.h"
 
@@ -9,6 +9,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     uAttribMod = 0;
+    uMaxHealth = 0;
+    uCurrentHealth = 0;
+    uExperience = 0;
+
+    // Variables for saving out
+    // Rest read from fields
+    qsName = "[NAME]";
+    uLevel = 1;
+    qsRace = "[RACE]";
+    qsClass = "[CLASS]";
 }
 
 MainWindow::~MainWindow()
@@ -147,6 +157,42 @@ void MainWindow::run_check(QCheckBox *skill, Attributes defaultAttribute)
     ui->btn_rollmod_advntg->setChecked(false);
 }
 
+void MainWindow::run_save(QCheckBox *skill, Attributes usedAttribute)
+{
+    auto rollType = roll;
+    QString DBG = "";
+
+    // Evalute the check, including Advantage and Disadvantage rolls
+    if(ui->btn_rollmod_advntg->isChecked())
+    {
+        rollType = rollAdvantage;
+        DBG = "+";
+    }
+
+    if(ui->btn_rollmod_dsadvn->isChecked())
+    {
+        rollType = rollDisadvantage;
+        DBG = "-";
+    }
+
+    // Roll and modify
+    uint32_t rawRoll = rollWith(rollType, Dice::d20);
+    int32_t mod = (get_stat(usedAttribute) - 10) / 2;
+    if(skill->isChecked()) mod += ui->spin_stat_pro->value();
+
+    ui->text_dbg_output->append(skill->text() + DBG + " Saving Throw" + ":\t<"
+                                + QString::number(rawRoll) + "> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
+
+    // Clear modifiers
+    uncheck_overrides(Attributes::None);
+    ui->btn_rollmod_dsadvn->setChecked(false);
+    ui->btn_rollmod_advntg->setChecked(false);
+}
+
+
+
+
+
 // Advantage, Disadvantage.
 // Cannot both be active
 void MainWindow::on_btn_rollmod_advntg_clicked()
@@ -251,4 +297,72 @@ void MainWindow::on_btn_check_ste_clicked()
 void MainWindow::on_btn_check_sur_clicked()
 {
     run_check(ui->skills_survival, Attributes::Wisdom);
+}
+
+/////
+/// Naming things
+///
+
+///
+/// \brief MainWindow::update_top_bar
+/// \param name
+/// \param level
+/// \param race
+/// \param class_
+///
+void MainWindow::update_top_bar()
+{
+
+    ui->label_top_name->setText(qsName);
+    ui->label_top_level_race_class->setText(
+                QString::fromStdString(make_nth(uLevel)) + " Level " +
+                qsRace + " " +
+                qsClass
+                );
+}
+
+///
+/// \brief MainWindow::on_other_update_btn_clicked
+///
+void MainWindow::on_other_update_btn_clicked()
+{
+    qsName = ui->other_edit_name->text();
+    qsRace = ui->other_edit_race->text();
+    qsClass = ui->other_edit_class->text();
+    //Update the variables
+    update_top_bar();
+}
+
+/////
+/// Saving Throws
+///
+
+void MainWindow::on_btn_save_str_clicked()
+{
+    run_save(ui->other_save_str, Attributes::Strength);
+}
+
+void MainWindow::on_btn_save_dex_clicked()
+{
+    run_save(ui->other_save_dex, Attributes::Dexterity);
+}
+
+void MainWindow::on_btn_save_con_clicked()
+{
+    run_save(ui->other_save_con, Attributes::Constitution);
+}
+
+void MainWindow::on_btn_save_int_clicked()
+{
+    run_save(ui->other_save_int, Attributes::Intelligence);
+}
+
+void MainWindow::on_btn_save_wis_clicked()
+{
+    run_save(ui->other_save_wis, Attributes::Wisdom);
+}
+
+void MainWindow::on_btn_save_cha_clicked()
+{
+    run_save(ui->other_save_cha, Attributes::Charisma);
 }

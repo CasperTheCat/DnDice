@@ -29,6 +29,7 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     dice.h \
-    dice_functions.h
+    dice_functions.h \
+    utilities.h
 
 FORMS    += mainwindow.ui
