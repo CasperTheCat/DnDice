@@ -7,6 +7,11 @@ uint32_t roll(FNCTN_PTR dice)
     return dice();
 }
 
+uint32_t rollWith(FNCTN_PTR_ARG diceFunction, FNCTN_PTR dice)
+{
+    return diceFunction(dice);
+}
+
 uint32_t rollMulti(uint32_t rounds, FNCTN_PTR dice)
 {
 	uint32_t ret = 0;
@@ -32,4 +37,6 @@ uint32_t rollDisadvantage(FNCTN_PTR dice)
 {
 	return std::min(dice(), dice());
 }
+
+
 

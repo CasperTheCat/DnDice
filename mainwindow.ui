@@ -35,7 +35,15 @@
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
     </property>
-    <widget class="QWidget" name="gridToolBoxPage1" native="true">
+    <widget class="QWidget" name="grid_page_stat">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>961</width>
+       <height>370</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>Stats</string>
      </attribute>
@@ -53,56 +61,56 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_2">
+         <widget class="QCheckBox" name="skills_animalHandling">
           <property name="text">
            <string>Animal Handling</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_4">
+         <widget class="QCheckBox" name="skills_arcana">
           <property name="text">
            <string>Arcana</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_3">
+         <widget class="QCheckBox" name="skills_athletics">
           <property name="text">
            <string>Athletics</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_5">
+         <widget class="QCheckBox" name="skills_deception">
           <property name="text">
            <string>Deception</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_6">
+         <widget class="QCheckBox" name="skills_history">
           <property name="text">
            <string>History</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_7">
+         <widget class="QCheckBox" name="skills_insight">
           <property name="text">
            <string>Insight</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_8">
+         <widget class="QCheckBox" name="skills_intimidation">
           <property name="text">
            <string>Intimidation</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_9">
+         <widget class="QCheckBox" name="skills_investigation">
           <property name="text">
            <string>Investigation</string>
           </property>
@@ -144,28 +152,28 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_15">
+         <widget class="QCheckBox" name="skills_religion">
           <property name="text">
            <string>Religion</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_16">
+         <widget class="QCheckBox" name="skills_sleightofhand">
           <property name="text">
            <string>Sleight of Hand</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_17">
+         <widget class="QCheckBox" name="skills_stealth">
           <property name="text">
            <string>Stealth</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_18">
+         <widget class="QCheckBox" name="skills_survival">
           <property name="text">
            <string>Survival</string>
           </property>
@@ -215,7 +223,11 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="spin_stat_str"/>
+         <widget class="QSpinBox" name="spin_stat_str">
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_stat_dex">
@@ -228,7 +240,11 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="spin_stat_dex"/>
+         <widget class="QSpinBox" name="spin_stat_dex">
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_stat_con">
@@ -241,7 +257,11 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSpinBox" name="spin_stat_con"/>
+         <widget class="QSpinBox" name="spin_stat_con">
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_stat_int">
@@ -254,7 +274,11 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QSpinBox" name="spin_stat_int"/>
+         <widget class="QSpinBox" name="spin_stat_int">
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_stat_wis">
@@ -267,7 +291,11 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QSpinBox" name="spin_stat_wis"/>
+         <widget class="QSpinBox" name="spin_stat_wis">
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_stat_cha">
@@ -280,14 +308,38 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QSpinBox" name="spin_stat_cha"/>
+         <widget class="QSpinBox" name="spin_stat_cha">
+          <property name="value">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_stat_pro">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding-left:10px; padding-right:10px;</string>
+          </property>
+          <property name="text">
+           <string>Proficiency Bonus</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="spin_stat_pro">
+          <property name="suffix">
+           <string/>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
       <item row="1" column="2">
        <widget class="QLabel" name="ac_label">
         <property name="text">
-         <string>ACetc</string>
+         <string>Other Statistics</string>
         </property>
        </widget>
       </item>
@@ -296,13 +348,541 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="grid_page_checks">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>961</width>
+       <height>370</height>
+      </rect>
+     </property>
      <attribute name="label">
-      <string>Checks</string>
+      <string>Checks and Saves</string>
+     </attribute>
+     <widget class="QGroupBox" name="org_group_checks">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>0</y>
+        <width>281</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Checks</string>
+      </property>
+      <widget class="QPushButton" name="btn_check_acro">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Acrobatics (Dex)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_anml">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Animal Handling (Wis)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_arcana">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Arcana (Int)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ath">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Athletics (Str)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_dec">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Deception (Cha)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_his">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>170</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>History (Int)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ins">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>200</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Insight (Wis)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_int">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>230</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Intimidation (Cha)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_inv">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>260</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Investigation (Int)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_med">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Medicine (Wis)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_nat">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>50</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Nature (Int)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_perc">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>80</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Perception (Wis)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_perf">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>110</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Performance (Cha)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_pers">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>140</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Persuasion (Cha)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_rel">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>170</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Religion (Int)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_sle">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>200</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Sleight of Hand (Dex)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ste">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>230</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Stealth (Dex)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_sur">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>260</y>
+         <width>120</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Survival (Wis)</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ovrrde_str">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>310</y>
+         <width>65</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Str</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ovrrde_int">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>340</y>
+         <width>65</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Int</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ovrrde_dex">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>310</y>
+         <width>65</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Dex</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ovrrde_wis">
+       <property name="geometry">
+        <rect>
+         <x>90</x>
+         <y>340</y>
+         <width>65</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Wis</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ovrrde_con">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>310</y>
+         <width>65</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Con</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_check_ovrrde_cha">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>340</y>
+         <width>65</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Cha</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_check_ovrrde">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>290</y>
+         <width>261</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="text">
+        <string>Attribute Override</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QTextBrowser" name="text_dbg_output">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>10</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="org_group">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>121</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Roll Modifiers</string>
+      </property>
+      <widget class="QPushButton" name="btn_rollmod_advntg">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>100</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Advantage</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_rollmod_dsadvn">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>100</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">text-align: left; padding-left: 10px;</string>
+       </property>
+       <property name="text">
+        <string>Disadvantage</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="grid_page_dice">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>961</width>
+       <height>370</height>
+      </rect>
+     </property>
+     <attribute name="label">
+      <string>Dice</string>
      </attribute>
     </widget>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_top_name">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -315,7 +895,7 @@
      <string>Character Name</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="label_top_level">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -328,7 +908,7 @@
      <string>1st Level</string>
     </property>
    </widget>
-   <widget class="QProgressBar" name="progressBar">
+   <widget class="QProgressBar" name="prog_health">
     <property name="geometry">
      <rect>
       <x>830</x>
@@ -345,6 +925,28 @@
     </property>
     <property name="format">
      <string>%v/%m HP</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="prog_experience">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>10</y>
+      <width>118</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <number>50</number>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="format">
+     <string>%v/%m EXP</string>
     </property>
    </widget>
   </widget>

@@ -111,18 +111,8 @@ int main(int argc, char **argv)
 	for (int i = 0; i < ITER; ++i)
 	{
 		uint32_t local = 0;
-		uint32_t l0[4];
-
-		l0[0] = roll(Dice::d6);
-		l0[1] = roll(Dice::d6);
-		l0[2] = roll(Dice::d6);
-		l0[3] = roll(Dice::d6);
-
-		std::sort(std::begin(l0), std::end(l0), std::greater<uint32_t>());
-
-		local += l0[0];
-		local += l0[1]; 
-		local += l0[2];
+		local += rollMulti(3, Dice::td6);
+		//local -= roll(Dice::d3);
 
 		// Lowest Drop
 
