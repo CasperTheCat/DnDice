@@ -21,12 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Use this to store data from now on!!!
     playerData = new sInterfaceFields();
+    expManagerWindow = new ExpManager(this);
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete playerData;
+    delete expManagerWindow;
 }
 
 /*void MainWindow::on_d20Roll_clicked()
@@ -127,7 +130,7 @@ QString MainWindow::get_modifier_shortname(uint8_t modifier)
 void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes defaultAttribute)
 {
     auto rollType = roll;
-    QString DBG = "";
+    QString qsAddOrDis = "<font>";
     uint8_t attribModifier = get_override_state();
     if(!attribModifier) attribModifier = defaultAttribute;
 
@@ -136,13 +139,13 @@ void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes de
     if(ui->btn_rollmod_advntg->isChecked())
     {
         rollType = rollAdvantage;
-        DBG = "+";
+        qsAddOrDis = "<font color=\"green\">";
     }
 
     if(ui->btn_rollmod_dsadvn->isChecked())
     {
         rollType = rollDisadvantage;
-        DBG = "-";
+        qsAddOrDis = "<font color=#c00>";;
     }
 
     // Modifiers
@@ -151,8 +154,8 @@ void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes de
     if(skill->isChecked()) mod += ui->spin_stat_pro->value();
     if(expertise->isChecked()) mod += ui->spin_stat_pro->value();
 
-    ui->text_dbg_output->append(skill->text() + DBG + " (" + get_modifier_shortname(attribModifier) + ")" + ":\t<"
-                                + QString::number(rawRoll) + "> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
+    ui->text_dbg_output->append(qsAddOrDis + skill->text() + "</font> <font color=\"grey\">(" + get_modifier_shortname(attribModifier) + ")</font>");
+    ui->text_dbg_dice->append(QString::number(rawRoll) + "> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
 
     // Clear modifiers
     uncheck_overrides(Attributes::None);
@@ -183,8 +186,8 @@ void MainWindow::run_save(QCheckBox *skill, Attributes usedAttribute)
     int32_t mod = (get_stat(usedAttribute) - 10) / 2;
     if(skill->isChecked()) mod += ui->spin_stat_pro->value();
 
-    ui->text_dbg_output->append(skill->text() + DBG + " Saving Throw" + ":\t<"
-                                + QString::number(rawRoll) + "> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
+    ui->text_dbg_output->append(skill->text() + DBG + " Saving Throw");
+    ui->text_dbg_dice->append("<p>" + QString::number(rawRoll) + "</p> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
 
     // Clear modifiers
     uncheck_overrides(Attributes::None);
@@ -374,4 +377,14 @@ void MainWindow::on_btn_save_cha_clicked()
 void MainWindow::updateTitle()
 {
     setWindowTitle("DnDice: " + qsFileName);
+}
+
+
+
+void MainWindow::on_actionExp_Manager_triggered()
+{
+
+    //expManagerWindow->setWindowFlags(Qt::WindowStaysOnTopHint);
+    expManagerWindow->show();
+    //this->hide();
 }

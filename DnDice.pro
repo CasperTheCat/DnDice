@@ -26,12 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     dice_functions.cpp \
+    interfacefields.cpp \
     qsave.cpp \
-    interfacefields.cpp
+    expmanager.cpp
 
 HEADERS  += mainwindow.h \
     dice.h \
     dice_functions.h \
-    utilities.h
+    utilities.h \
+    expmanager.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    expmanager.ui

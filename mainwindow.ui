@@ -145,6 +145,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="NoRole">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>170</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="ToolTipBase">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -282,6 +291,15 @@
        </color>
       </brush>
      </colorrole>
+     <colorrole role="NoRole">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>170</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
      <colorrole role="ToolTipBase">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
@@ -416,6 +434,15 @@
         <red>46</red>
         <green>52</green>
         <blue>54</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="NoRole">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>170</red>
+        <green>0</green>
+        <blue>0</blue>
        </color>
       </brush>
      </colorrole>
@@ -674,7 +701,7 @@
          <x>0</x>
          <y>0</y>
          <width>1280</width>
-         <height>524</height>
+         <height>525</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -2623,7 +2650,7 @@
          <rect>
           <x>770</x>
           <y>20</y>
-          <width>421</width>
+          <width>180</width>
           <height>321</height>
          </rect>
         </property>
@@ -3059,6 +3086,22 @@
          </property>
         </widget>
        </widget>
+       <widget class="QTextBrowser" name="text_dbg_dice">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>20</y>
+          <width>180</width>
+          <height>321</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>1</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="grid_page_dice">
        <property name="geometry">
@@ -3066,7 +3109,7 @@
          <x>0</x>
          <y>0</y>
          <width>1280</width>
-         <height>524</height>
+         <height>525</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3083,7 +3126,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>24</height>
+     <height>27</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -3105,14 +3148,14 @@
      <rect>
       <x>2905</x>
       <y>147</y>
-      <width>168</width>
-      <height>120</height>
+      <width>170</width>
+      <height>109</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Bitstream Charter</family>
-      <pointsize>13</pointsize>
+      <family>Segoe UI</family>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="title">
@@ -3121,7 +3164,14 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionExp_Manager"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSave">
@@ -3133,7 +3183,8 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>13</pointsize>
+     <family>Segoe UI</family>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="shortcut">
@@ -3147,8 +3198,26 @@
    <property name="toolTip">
     <string>Save Under a New Name</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+    </font>
+   </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionExp_Manager">
+   <property name="text">
+    <string>Exp Manager</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+    </font>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
  </widget>

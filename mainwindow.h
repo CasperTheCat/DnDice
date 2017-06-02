@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "expmanager.h"
 
 
 
@@ -149,8 +150,11 @@ private slots:
 
     void on_actionSave_As_triggered();
 
+    void on_actionExp_Manager_triggered();
+
 private:
     Ui::MainWindow *ui;
+    ExpManager *expManagerWindow;
 
     // AttributeOverrides
 private:
