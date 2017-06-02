@@ -4,7 +4,6 @@
 #include <string>
 
 
-
 std::string make_nth(uint64_t numeric)
 {
     std::string nthList[10] = {"th","st","nd","rd","th","th","th","th","th","th"};

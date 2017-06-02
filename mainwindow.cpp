@@ -2,23 +2,26 @@
 #include "utilities.h"
 #include "dice.h"
 #include "dice_functions.h"
+#include <fstream>
+#include <QFile>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    uAttribMod = 0;
-    uMaxHealth = 0;
-    uCurrentHealth = 0;
-    uExperience = 0;
 
-    // Variables for saving out
-    // Rest read from fields
-    qsName = "[NAME]";
-    uLevel = 1;
-    qsRace = "[RACE]";
-    qsClass = "[CLASS]";
+    bNewFile = true;
+    bFileDirty = false;
+    qsFileName = "untitled";
+    setWindowTitle("DnDice: " + qsFileName);
+
+
+    // Use this to store data from now on!!!
+    playerData = new sInterfaceFields();
+
 }
 
 MainWindow::~MainWindow()
@@ -121,7 +124,7 @@ QString MainWindow::get_modifier_shortname(uint8_t modifier)
     return "None";
 }
 
-void MainWindow::run_check(QCheckBox *skill, Attributes defaultAttribute)
+void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes defaultAttribute)
 {
     auto rollType = roll;
     QString DBG = "";
@@ -133,20 +136,20 @@ void MainWindow::run_check(QCheckBox *skill, Attributes defaultAttribute)
     if(ui->btn_rollmod_advntg->isChecked())
     {
         rollType = rollAdvantage;
-        DBG = " ++ ";
+        DBG = "+";
     }
 
     if(ui->btn_rollmod_dsadvn->isChecked())
     {
         rollType = rollDisadvantage;
-        DBG = " -- ";
+        DBG = "-";
     }
 
     // Modifiers
     uint32_t rawRoll = rollWith(rollType, Dice::d20);
     int32_t mod = (get_stat(attribModifier) - 10) / 2;
     if(skill->isChecked()) mod += ui->spin_stat_pro->value();
-
+    if(expertise->isChecked()) mod += ui->spin_stat_pro->value();
 
     ui->text_dbg_output->append(skill->text() + DBG + " (" + get_modifier_shortname(attribModifier) + ")" + ":\t<"
                                 + QString::number(rawRoll) + "> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
@@ -211,92 +214,92 @@ void MainWindow::on_btn_rollmod_dsadvn_clicked()
 
 void MainWindow::on_btn_check_acro_clicked()
 {
-    run_check(ui->skills_acro, Attributes::Dexterity);
+    run_check(ui->skills_acro, ui->expertise_acro , Attributes::Dexterity);
 }
 
 void MainWindow::on_btn_check_anml_clicked()
 {
-    run_check(ui->skills_animalHandling, Attributes::Wisdom);
+    run_check(ui->skills_animalHandling,ui->expertise_animalHandling, Attributes::Wisdom);
 }
 
 void MainWindow::on_btn_check_arcana_clicked()
 {
-    run_check(ui->skills_arcana, Attributes::Intelligence);
+    run_check(ui->skills_arcana,ui->expertise_arcana, Attributes::Intelligence);
 }
 
 void MainWindow::on_btn_check_ath_clicked()
 {
-    run_check(ui->skills_athletics, Attributes::Strength);
+    run_check(ui->skills_athletics,ui->expertise_athletics, Attributes::Strength);
 }
 
 void MainWindow::on_btn_check_dec_clicked()
 {
-    run_check(ui->skills_deception, Attributes::Charisma);
+    run_check(ui->skills_deception, ui->expertise_deception, Attributes::Charisma);
 }
 
 void MainWindow::on_btn_check_his_clicked()
 {
-    run_check(ui->skills_history, Attributes::Intelligence);
+    run_check(ui->skills_history,ui->expertise_history, Attributes::Intelligence);
 }
 
 void MainWindow::on_btn_check_ins_clicked()
 {
-    run_check(ui->skills_insight, Attributes::Wisdom);
+    run_check(ui->skills_insight,ui->expertise_insight, Attributes::Wisdom);
 }
 
 void MainWindow::on_btn_check_int_clicked()
 {
-    run_check(ui->skills_intimidation, Attributes::Charisma);
+    run_check(ui->skills_intimidation,ui->expertise_intimidation, Attributes::Charisma);
 }
 
 void MainWindow::on_btn_check_inv_clicked()
 {
-    run_check(ui->skills_investigation, Attributes::Intelligence);
+    run_check(ui->skills_investigation,ui->expertise_investigation, Attributes::Intelligence);
 }
 
 void MainWindow::on_btn_check_med_clicked()
 {
-    run_check(ui->skills_medicine, Attributes::Wisdom);
+    run_check(ui->skills_medicine,ui->expertise_medicine, Attributes::Wisdom);
 }
 
 void MainWindow::on_btn_check_nat_clicked()
 {
-    run_check(ui->skills_nature, Attributes::Intelligence);
+    run_check(ui->skills_nature,ui->expertise_nature, Attributes::Intelligence);
 }
 
 void MainWindow::on_btn_check_perc_clicked()
 {
-    run_check(ui->skills_perception, Attributes::Wisdom);
+    run_check(ui->skills_perception,ui->expertise_perception, Attributes::Wisdom);
 }
 
 void MainWindow::on_btn_check_perf_clicked()
 {
-    run_check(ui->skills_performance, Attributes::Charisma);
+    run_check(ui->skills_performance,ui->expertise_performance, Attributes::Charisma);
 }
 
 void MainWindow::on_btn_check_pers_clicked()
 {
-    run_check(ui->skills_persuasion, Attributes::Charisma);
+    run_check(ui->skills_persuasion,ui->expertise_persuasion, Attributes::Charisma);
 }
 
 void MainWindow::on_btn_check_rel_clicked()
 {
-    run_check(ui->skills_religion, Attributes::Intelligence);
+    run_check(ui->skills_religion,ui->expertise_religion, Attributes::Intelligence);
 }
 
 void MainWindow::on_btn_check_sle_clicked()
 {
-    run_check(ui->skills_sleightofhand, Attributes::Dexterity);
+    run_check(ui->skills_sleightofhand,ui->expertise_sleightofhand, Attributes::Dexterity);
 }
 
 void MainWindow::on_btn_check_ste_clicked()
 {
-    run_check(ui->skills_stealth, Attributes::Dexterity);
+    run_check(ui->skills_stealth,ui->expertise_stealth, Attributes::Dexterity);
 }
 
 void MainWindow::on_btn_check_sur_clicked()
 {
-    run_check(ui->skills_survival, Attributes::Wisdom);
+    run_check(ui->skills_survival,ui->expertise_survival, Attributes::Wisdom);
 }
 
 /////
@@ -313,11 +316,11 @@ void MainWindow::on_btn_check_sur_clicked()
 void MainWindow::update_top_bar()
 {
 
-    ui->label_top_name->setText(qsName);
+    ui->label_top_name->setText(playerData->qsName);
     ui->label_top_level_race_class->setText(
-                QString::fromStdString(make_nth(uLevel)) + " Level " +
-                qsRace + " " +
-                qsClass
+                QString::fromStdString(make_nth(playerData->uLevel)) + " Level " +
+                playerData->qsRace + " " +
+                playerData->qsClass
                 );
 }
 
@@ -326,9 +329,9 @@ void MainWindow::update_top_bar()
 ///
 void MainWindow::on_other_update_btn_clicked()
 {
-    qsName = ui->other_edit_name->text();
-    qsRace = ui->other_edit_race->text();
-    qsClass = ui->other_edit_class->text();
+    playerData->qsName = ui->other_edit_name->text();
+    playerData->qsRace = ui->other_edit_race->text();
+    playerData->qsClass = ui->other_edit_class->text();
     //Update the variables
     update_top_bar();
 }
@@ -365,4 +368,10 @@ void MainWindow::on_btn_save_wis_clicked()
 void MainWindow::on_btn_save_cha_clicked()
 {
     run_save(ui->other_save_cha, Attributes::Charisma);
+}
+
+
+void MainWindow::updateTitle()
+{
+    setWindowTitle("DnDice: " + qsFileName);
 }

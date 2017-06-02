@@ -25,7 +25,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dice_functions.cpp
+    dice_functions.cpp \
+    qsave.cpp \
+    interfacefields.cpp
 
 HEADERS  += mainwindow.h \
     dice.h \

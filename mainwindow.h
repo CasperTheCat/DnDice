@@ -4,6 +4,56 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 
+
+
+
+enum eSkills
+{
+    Acrobatics,
+    AnimalHandling,
+    Arcana,
+    Athletics,
+    Deception,
+    History,
+    Insight,
+    Intimidation,
+    Investigation,
+    Medicine,
+    Nature,
+    Perception,
+    Performance,
+    Persuasion,
+    Religion,
+    Sleight_of_Hand,
+    Stealth,
+    Survival,
+
+    TOTAL_NUMBER_SKILLS
+};
+
+struct sInterfaceFields
+{
+    QString qsName;
+    QString qsRace;
+    QString qsClass;
+
+    quint32 uMaxHealth;
+    quint32 uCurrentHealth;
+    quint32 uExperience;
+    quint32 uLevel;
+
+
+    std::vector<bool> bProficencyArray;
+    std::vector<bool> bExpertiseArray;
+
+    sInterfaceFields();
+    ~sInterfaceFields();
+    void reserve(quint64 size);
+
+};
+
+
+
 enum Attributes {
     None = 0,
     Strength = 0b00000001,
@@ -95,22 +145,22 @@ private slots:
 
     void on_btn_save_cha_clicked();
 
+    void on_actionSave_triggered();
+
+    void on_actionSave_As_triggered();
+
 private:
     Ui::MainWindow *ui;
 
     // AttributeOverrides
 private:
-    uint8_t uAttribMod;
-    uint32_t uMaxHealth;
-    uint32_t uCurrentHealth;
-    uint32_t uExperience;
+    sInterfaceFields *playerData;
 
-    // Variables for saving out
-    // Rest read from fields
-    QString qsName;
-    uint32_t uLevel;
-    QString qsRace;
-    QString qsClass;
+
+    // File save
+    bool bNewFile;
+    bool bFileDirty;
+    QString qsFileName;
 
 
 private:
@@ -127,13 +177,21 @@ private:
     QString get_modifier_shortname(uint8_t modifier);
 
     // Generalised function to save space and iteration time
-    void run_check(QCheckBox *skill, Attributes defaultAttribute);
+    void run_check(QCheckBox *skill, QCheckBox *expertise, Attributes defaultAttribute);
 
     // Used by the 6 saving throw callers
     void run_save(QCheckBox *skill, Attributes usedAttribute);
 
     // Used by loader in future
     void update_top_bar();
+
+    // Saving
+    void saveFile();
+    sInterfaceFields *interfaceToFields();
+    void serialiseAndPackFields();
+
+    // Update UI
+    void updateTitle();
 };
 
 #endif // MAINWINDOW_H
