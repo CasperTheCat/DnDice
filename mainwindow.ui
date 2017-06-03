@@ -1119,7 +1119,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Save Proficencies</string>
+              <string>Save Proficiencies</string>
              </property>
              <widget class="QCheckBox" name="other_save_str">
               <property name="geometry">
@@ -1275,7 +1275,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Skill Proficencies</string>
+              <string>Skill Proficiencies</string>
              </property>
              <widget class="QCheckBox" name="skills_perception">
               <property name="geometry">
@@ -3146,10 +3146,10 @@
    <widget class="QMenu" name="menuFile">
     <property name="geometry">
      <rect>
-      <x>2905</x>
-      <y>147</y>
-      <width>170</width>
-      <height>109</height>
+      <x>270</x>
+      <y>106</y>
+      <width>134</width>
+      <height>125</height>
      </rect>
     </property>
     <property name="font">
@@ -3163,6 +3163,8 @@
     </property>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionLoad"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -3218,6 +3220,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="text">
+    <string>Load</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

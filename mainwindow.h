@@ -3,34 +3,48 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include <QBitArray>
 #include "expmanager.h"
 
+namespace eSkills {
+    enum eSkills
+    {
+        Acrobatics,
+        AnimalHandling,
+        Arcana,
+        Athletics,
+        Deception,
+        History,
+        Insight,
+        Intimidation,
+        Investigation,
+        Medicine,
+        Nature,
+        Perception,
+        Performance,
+        Persuasion,
+        Religion,
+        Sleight_of_Hand,
+        Stealth,
+        Survival,
 
+        TOTAL_NUMBER_SKILLS
+    };
+}
 
+namespace eSaves {
+    enum eSaves
+    {
+        Strength,
+        Dexterity,
+        Constitution,
+        Intelligence,
+        Wisdom,
+        Charisma,
 
-enum eSkills
-{
-    Acrobatics,
-    AnimalHandling,
-    Arcana,
-    Athletics,
-    Deception,
-    History,
-    Insight,
-    Intimidation,
-    Investigation,
-    Medicine,
-    Nature,
-    Perception,
-    Performance,
-    Persuasion,
-    Religion,
-    Sleight_of_Hand,
-    Stealth,
-    Survival,
-
-    TOTAL_NUMBER_SKILLS
-};
+        TOTAL_NUMBER_SAVES
+    };
+}
 
 struct sInterfaceFields
 {
@@ -41,11 +55,13 @@ struct sInterfaceFields
     quint32 uMaxHealth;
     quint32 uCurrentHealth;
     quint32 uExperience;
-    quint32 uLevel;
 
 
-    std::vector<bool> bProficencyArray;
-    std::vector<bool> bExpertiseArray;
+    QBitArray qbaProfArray;
+    QBitArray qbaExpArray;
+    QBitArray qbaSaveArray;
+    //std::vector<bool> bProficiencyArray;
+    //std::vector<bool> bExpertiseArray;
 
     sInterfaceFields();
     ~sInterfaceFields();
@@ -54,16 +70,17 @@ struct sInterfaceFields
 };
 
 
-
-enum Attributes {
-    None = 0,
-    Strength = 0b00000001,
-    Dexterity = 2,
-    Constitution = 4,
-    Intelligence = 8,
-    Wisdom = 16,
-    Charisma = 32
-};
+namespace Attributes {
+    enum Attributes {
+        None = 0,
+        Strength = 0b00000001,
+        Dexterity = 2,
+        Constitution = 4,
+        Intelligence = 8,
+        Wisdom = 16,
+        Charisma = 32
+    };
+}
 
 namespace Ui {
 
@@ -77,6 +94,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void receive_experience(quint32 level, quint32 tExp, quint32 expSince, quint32 expTo);
 
 private slots:
 
@@ -152,6 +170,8 @@ private slots:
 
     void on_actionExp_Manager_triggered();
 
+    void on_actionLoad_triggered();
+
 private:
     Ui::MainWindow *ui;
     ExpManager *expManagerWindow;
@@ -159,6 +179,9 @@ private:
     // AttributeOverrides
 private:
     sInterfaceFields *playerData;
+    quint32 uLevel;
+    quint32 uExpSince;
+    quint32 uExpTo;
 
 
     // File save
@@ -169,7 +192,7 @@ private:
 
 private:
     // Uncheck buttons
-    void uncheck_overrides(Attributes exclusion);
+    void uncheck_overrides(Attributes::Attributes exclusion);
 
     // Check if any of the buttons are clicked
     uint8_t get_override_state();
@@ -181,10 +204,10 @@ private:
     QString get_modifier_shortname(uint8_t modifier);
 
     // Generalised function to save space and iteration time
-    void run_check(QCheckBox *skill, QCheckBox *expertise, Attributes defaultAttribute);
+    void run_check(QCheckBox *skill, QCheckBox *expertise, Attributes::Attributes defaultAttribute);
 
     // Used by the 6 saving throw callers
-    void run_save(QCheckBox *skill, Attributes usedAttribute);
+    void run_save(QCheckBox *skill, Attributes::Attributes usedAttribute);
 
     // Used by loader in future
     void update_top_bar();
@@ -192,6 +215,7 @@ private:
     // Saving
     void saveFile();
     sInterfaceFields *interfaceToFields();
+    void fieldsToInterface(sInterfaceFields * loadData);
     void serialiseAndPackFields();
 
     // Update UI

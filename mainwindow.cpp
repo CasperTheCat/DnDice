@@ -18,11 +18,15 @@ MainWindow::MainWindow(QWidget *parent) :
     qsFileName = "untitled";
     setWindowTitle("DnDice: " + qsFileName);
 
+    uLevel = 1;
+    uExpSince = 0;
+    uExpTo = 0;
+
+
 
     // Use this to store data from now on!!!
     playerData = new sInterfaceFields();
     expManagerWindow = new ExpManager(this);
-
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +34,22 @@ MainWindow::~MainWindow()
     delete ui;
     delete playerData;
     delete expManagerWindow;
+}
+
+void MainWindow::receive_experience(quint32 level, quint32 tExp, quint32 expSince, quint32 expTo)
+{
+    // Store tExp data in playerData since it gets saved
+    playerData->uExperience = tExp;
+    uLevel = level;
+    uExpSince = expSince;
+    uExpTo = expTo;
+
+    // Update Experience UI
+    ui->prog_experience->setValue(uExpSince);
+    ui->prog_experience->setMaximum(uExpTo);
+
+    // Calculate prof
+    ui->spin_stat_pro->setValue(((uLevel - 1) / 4) + 2);
 }
 
 /*void MainWindow::on_d20Roll_clicked()
@@ -81,7 +101,7 @@ void MainWindow::on_btn_check_ovrrde_cha_clicked(bool checked)
     uncheck_overrides(Attributes::Charisma);
 }
 
-void MainWindow::uncheck_overrides(Attributes exclusion)
+void MainWindow::uncheck_overrides(Attributes::Attributes exclusion)
 {
     if(exclusion != Attributes::Strength) ui->btn_check_ovrrde_str->setChecked(false);
     if(exclusion != Attributes::Dexterity) ui->btn_check_ovrrde_dex->setChecked(false);
@@ -127,7 +147,7 @@ QString MainWindow::get_modifier_shortname(uint8_t modifier)
     return "None";
 }
 
-void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes defaultAttribute)
+void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes::Attributes defaultAttribute)
 {
     auto rollType = roll;
     QString qsAddOrDis = "<font>";
@@ -145,7 +165,7 @@ void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes de
     if(ui->btn_rollmod_dsadvn->isChecked())
     {
         rollType = rollDisadvantage;
-        qsAddOrDis = "<font color=#c00>";;
+        qsAddOrDis = "<font color=#c00>";
     }
 
     // Modifiers
@@ -155,7 +175,7 @@ void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes de
     if(expertise->isChecked()) mod += ui->spin_stat_pro->value();
 
     ui->text_dbg_output->append(qsAddOrDis + skill->text() + "</font> <font color=\"grey\">(" + get_modifier_shortname(attribModifier) + ")</font>");
-    ui->text_dbg_dice->append(QString::number(rawRoll) + "> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
+    ui->text_dbg_dice->append(QString::number(rawRoll) + "<font color=\"grey\"> + " + QString::number(mod) + "</font> = \t" + QString::number(rawRoll + mod));
 
     // Clear modifiers
     uncheck_overrides(Attributes::None);
@@ -163,22 +183,22 @@ void MainWindow::run_check(QCheckBox *skill, QCheckBox *expertise, Attributes de
     ui->btn_rollmod_advntg->setChecked(false);
 }
 
-void MainWindow::run_save(QCheckBox *skill, Attributes usedAttribute)
+void MainWindow::run_save(QCheckBox *skill, Attributes::Attributes usedAttribute)
 {
     auto rollType = roll;
-    QString DBG = "";
+    QString qsAddOrDis = "<font>";
 
     // Evalute the check, including Advantage and Disadvantage rolls
     if(ui->btn_rollmod_advntg->isChecked())
     {
         rollType = rollAdvantage;
-        DBG = "+";
+        qsAddOrDis = "<font color=\"green\">";
     }
 
     if(ui->btn_rollmod_dsadvn->isChecked())
     {
         rollType = rollDisadvantage;
-        DBG = "-";
+        qsAddOrDis = "<font color=#c00>";
     }
 
     // Roll and modify
@@ -186,8 +206,8 @@ void MainWindow::run_save(QCheckBox *skill, Attributes usedAttribute)
     int32_t mod = (get_stat(usedAttribute) - 10) / 2;
     if(skill->isChecked()) mod += ui->spin_stat_pro->value();
 
-    ui->text_dbg_output->append(skill->text() + DBG + " Saving Throw");
-    ui->text_dbg_dice->append("<p>" + QString::number(rawRoll) + "</p> + " + QString::number(mod) + " = " + QString::number(rawRoll + mod));
+    ui->text_dbg_output->append(qsAddOrDis + skill->text() + " save</font>");
+    ui->text_dbg_dice->append(QString::number(rawRoll) + "<font color=\"grey\"> + " + QString::number(mod) + "</font> = \t" + QString::number(rawRoll + mod));
 
     // Clear modifiers
     uncheck_overrides(Attributes::None);
@@ -321,7 +341,7 @@ void MainWindow::update_top_bar()
 
     ui->label_top_name->setText(playerData->qsName);
     ui->label_top_level_race_class->setText(
-                QString::fromStdString(make_nth(playerData->uLevel)) + " Level " +
+                QString::fromStdString(make_nth(uLevel)) + " Level " +
                 playerData->qsRace + " " +
                 playerData->qsClass
                 );
@@ -388,3 +408,4 @@ void MainWindow::on_actionExp_Manager_triggered()
     expManagerWindow->show();
     //this->hide();
 }
+
