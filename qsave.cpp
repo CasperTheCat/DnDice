@@ -71,6 +71,15 @@ sInterfaceFields *MainWindow::interfaceToFields()
         playerData->qbaSaveArray.setBit(eSaves::Charisma, ui->other_save_cha->isChecked());
     }
 
+    {
+        playerData->qvStats.push_back(ui->spin_stat_str->value());
+        playerData->qvStats.push_back(ui->spin_stat_dex->value());
+        playerData->qvStats.push_back( ui->spin_stat_con->value());
+        playerData->qvStats.push_back( ui->spin_stat_int->value());
+        playerData->qvStats.push_back(ui->spin_stat_wis->value());
+        playerData->qvStats.push_back( ui->spin_stat_cha->value());
+    }
+
     //
     return playerData;
 }
@@ -134,6 +143,16 @@ void MainWindow::fieldsToInterface(sInterfaceFields *loadData)
         ui->other_save_wis->setChecked( loadData->qbaSaveArray.at(eSaves::Wisdom) );
         ui->other_save_cha->setChecked( loadData->qbaSaveArray.at(eSaves::Charisma) );
     }
+
+    {
+        ui->spin_stat_str->setValue( loadData->qvStats.at(eSaves::Strength) );
+        ui->spin_stat_dex->setValue( loadData->qvStats.at(eSaves::Dexterity) );
+        ui->spin_stat_con->setValue( loadData->qvStats.at(eSaves::Constitution) );
+        ui->spin_stat_int->setValue( loadData->qvStats.at(eSaves::Intelligence) );
+        ui->spin_stat_wis->setValue( loadData->qvStats.at(eSaves::Wisdom) );
+        ui->spin_stat_cha->setValue( loadData->qvStats.at(eSaves::Charisma) );
+    }
+
 }
 
 void MainWindow::serialiseAndPackFields()
@@ -193,6 +212,17 @@ void MainWindow::saveFile()
     qdsOut << saveData->qbaProfArray;
     qdsOut << saveData->qbaExpArray;
     qdsOut << saveData->qbaSaveArray;
+    qdsOut << saveData->qvStats;
+    qdsOut << damManagerWindow->uMaxHealth;
+    qdsOut << damManagerWindow->uBonusHealth;
+    qdsOut << damManagerWindow->uTempHealth;
+    qdsOut << damManagerWindow->uDamage;
+    qdsOut << damManagerWindow->uHealing;
+
+
+    // AttrBlockStat
+
+
 
 
     bNewFile = false;
@@ -225,11 +255,18 @@ void MainWindow::on_actionLoad_triggered()
         qdsIn >> playerData->qbaProfArray;
         qdsIn >> playerData->qbaExpArray;
         qdsIn >> playerData->qbaSaveArray;
+        qdsIn >> playerData->qvStats;
+        qdsIn >> damManagerWindow->uMaxHealth;
+        qdsIn >> damManagerWindow->uBonusHealth;
+        qdsIn >> damManagerWindow->uTempHealth;
+        qdsIn >> damManagerWindow->uDamage;
+        qdsIn >> damManagerWindow->uHealing;
 
         bNewFile = false;
         updateTitle();
         fieldsToInterface(playerData);
         expManagerWindow->update_experience(playerData->uExperience);
+        damManagerWindow->refresh();
         update_top_bar();
 
     }

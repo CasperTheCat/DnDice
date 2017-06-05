@@ -650,6 +650,9 @@
         <property name="value">
          <number>8</number>
         </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
         <property name="format">
          <string>%v/%m HP</string>
         </property>
@@ -3171,6 +3174,7 @@
      <string>Edit</string>
     </property>
     <addaction name="actionExp_Manager"/>
+    <addaction name="actionDamage_Manger"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -3228,6 +3232,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionDamage_Manger">
+   <property name="text">
+    <string>Health Manger</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

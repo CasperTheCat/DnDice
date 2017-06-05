@@ -5,6 +5,7 @@
 #include "ui_mainwindow.h"
 #include <QBitArray>
 #include "expmanager.h"
+#include "damagemanager.h"
 
 namespace eSkills {
     enum eSkills
@@ -60,6 +61,7 @@ struct sInterfaceFields
     QBitArray qbaProfArray;
     QBitArray qbaExpArray;
     QBitArray qbaSaveArray;
+    QVector<quint32> qvStats;
     //std::vector<bool> bProficiencyArray;
     //std::vector<bool> bExpertiseArray;
 
@@ -95,6 +97,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void receive_experience(quint32 level, quint32 tExp, quint32 expSince, quint32 expTo);
+    void receive_health_update(quint32 cHealth, quint32 mHealth);
 
 private slots:
 
@@ -172,9 +175,12 @@ private slots:
 
     void on_actionLoad_triggered();
 
+    void on_actionDamage_Manger_triggered();
+
 private:
     Ui::MainWindow *ui;
     ExpManager *expManagerWindow;
+    DamageManager *damManagerWindow;
 
     // AttributeOverrides
 private:

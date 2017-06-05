@@ -28,13 +28,16 @@ SOURCES += main.cpp\
     dice_functions.cpp \
     interfacefields.cpp \
     qsave.cpp \
-    expmanager.cpp
+    expmanager.cpp \
+    damagemanager.cpp
 
 HEADERS  += mainwindow.h \
     dice.h \
     dice_functions.h \
     utilities.h \
-    expmanager.h
+    expmanager.h \
+    damagemanager.h
 
 FORMS    += mainwindow.ui \
-    expmanager.ui
+    expmanager.ui \
+    damagemanager.ui

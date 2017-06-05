@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ExpManager</class>
- <widget class="QDialog" name="ExpManager">
+ <class>DamageManager</class>
+ <widget class="QDialog" name="DamageManager">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -431,9 +431,143 @@
     </disabled>
    </palette>
   </property>
-  <property name="windowTitle">
-   <string>Experience Manager</string>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+   </font>
   </property>
+  <property name="windowTitle">
+   <string>Health Manager</string>
+  </property>
+  <widget class="QSpinBox" name="spin_raw_health">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>10</y>
+     <width>70</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="minimum">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <number>999999</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_set_raw_health">
+   <property name="geometry">
+    <rect>
+     <x>205</x>
+     <y>10</y>
+     <width>40</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Set</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_set_bonus_health">
+   <property name="geometry">
+    <rect>
+     <x>205</x>
+     <y>40</y>
+     <width>40</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Set</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spin_bonus_health">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>40</y>
+     <width>70</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="minimum">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <number>999999</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_raw_max">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>10</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Raw Max Health</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_bonus_health">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>40</y>
+     <width>100</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Bonus Health</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="rst_button">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>320</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+    </font>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </widget>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
@@ -449,15 +583,15 @@
     </font>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <set>QDialogButtonBox::Close</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_exp">
+  <widget class="QLabel" name="label_temp_health">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>150</y>
-     <width>100</width>
+     <x>15</x>
+     <y>70</y>
+     <width>110</width>
      <height>25</height>
     </rect>
    </property>
@@ -468,14 +602,14 @@
     </font>
    </property>
    <property name="text">
-    <string>Additional Exp</string>
+    <string>Temporary Health</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spin_add_exp">
+  <widget class="QSpinBox" name="spin_temp_health">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>150</y>
+     <x>130</x>
+     <y>70</y>
      <width>70</width>
      <height>25</height>
     </rect>
@@ -487,68 +621,31 @@
     </font>
    </property>
    <property name="minimum">
-    <number>-999999</number>
+    <number>0</number>
    </property>
    <property name="maximum">
-    <number>999999</number>
+    <number>20</number>
    </property>
   </widget>
-  <widget class="QLabel" name="label_title">
+  <widget class="QPushButton" name="btn_set_temp_health">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>130</width>
-     <height>20</height>
+     <x>205</x>
+     <y>70</y>
+     <width>40</width>
+     <height>25</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="mouseTracking">
-    <bool>false</bool>
-   </property>
    <property name="text">
-    <string>Total Experience</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::AutoText</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+    <string>Set</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_title_total_exp">
+  <widget class="QLabel" name="label_damage">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>10</y>
-     <width>90</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>16777215</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_level_exp">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>100</width>
+     <x>15</x>
+     <y>220</y>
+     <width>110</width>
      <height>25</height>
     </rect>
    </property>
@@ -559,14 +656,14 @@
     </font>
    </property>
    <property name="text">
-    <string>Set to Level Exp</string>
+    <string>Damage</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="spin_level">
+  <widget class="QSpinBox" name="spin_damage">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>180</y>
+     <x>130</x>
+     <y>220</y>
      <width>70</width>
      <height>25</height>
     </rect>
@@ -584,148 +681,297 @@
     <number>20</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_set_exp_to_level">
+  <widget class="QPushButton" name="btn_add_damage">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>180</y>
+     <x>205</x>
+     <y>220</y>
      <width>40</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Set</string>
+    <string>Add</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_add_exp">
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>150</y>
-     <width>40</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Set</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_title_since_level">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>60</y>
-     <width>130</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="mouseTracking">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Level Experience</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::AutoText</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_title_since_level_exp">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>60</y>
-     <width>90</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>16777215</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_title_level">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>35</y>
-     <width>130</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="mouseTracking">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Level</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::AutoText</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_title_level_num">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>35</y>
-     <width>90</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Segoe UI</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>16777215</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="rst_button">
+  <widget class="Line" name="line">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>320</y>
-     <width>75</width>
-     <height>23</height>
+     <y>200</y>
+     <width>240</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spin_heal">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>250</y>
+     <width>70</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>20</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labe_heal">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>250</y>
+     <width>110</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Reset</string>
+    <string>Heal</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_add_heal">
+   <property name="geometry">
+    <rect>
+     <x>205</x>
+     <y>250</y>
+     <width>40</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>240</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_bonus_log">
+   <property name="geometry">
+    <rect>
+     <x>155</x>
+     <y>125</y>
+     <width>90</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>16777215</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_title_bonus">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>125</y>
+     <width>130</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Bonus Health</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_current">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>180</y>
+     <width>130</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Current Health</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_current_value">
+   <property name="geometry">
+    <rect>
+     <x>155</x>
+     <y>180</y>
+     <width>90</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>16777215</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_title_raw">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>110</y>
+     <width>130</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Raw Health</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_raw_log">
+   <property name="geometry">
+    <rect>
+     <x>155</x>
+     <y>110</y>
+     <width>90</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>16777215</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_title_temp">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>140</y>
+     <width>130</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Temporary Health</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_temp_log">
+   <property name="geometry">
+    <rect>
+     <x>155</x>
+     <y>140</y>
+     <width>90</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>16777215</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
    </property>
   </widget>
  </widget>

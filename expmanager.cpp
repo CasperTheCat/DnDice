@@ -111,8 +111,6 @@ void ExpManager::recalculate_experience()
     else
         uNewExperienceToLevel = 0;
 
-    ui->label_exp->setText(QString::number(uNewExperienceToLevel));
-
 
     set_top_label();
 }

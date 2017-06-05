@@ -20,6 +20,7 @@ void sInterfaceFields::reserve(quint64 size)
     qbaProfArray.resize(eSkills::TOTAL_NUMBER_SKILLS);
     qbaExpArray.resize(eSkills::TOTAL_NUMBER_SKILLS);
     qbaSaveArray.resize(eSaves::TOTAL_NUMBER_SAVES);
+    qvStats.reserve(6);
     //bProficiencyArray.reserve(size);
     //bExpertiseArray.reserve(size);
 }

@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Use this to store data from now on!!!
     playerData = new sInterfaceFields();
     expManagerWindow = new ExpManager(this);
+    damManagerWindow = new DamageManager(this);
 }
 
 MainWindow::~MainWindow()
@@ -45,11 +46,21 @@ void MainWindow::receive_experience(quint32 level, quint32 tExp, quint32 expSinc
     uExpTo = expTo;
 
     // Update Experience UI
-    ui->prog_experience->setValue(uExpSince);
     ui->prog_experience->setMaximum(uExpTo);
+    ui->prog_experience->setValue(uExpSince);
+
 
     // Calculate prof
     ui->spin_stat_pro->setValue(((uLevel - 1) / 4) + 2);
+    update_top_bar();
+}
+
+void MainWindow::receive_health_update(quint32 cHealth, quint32 mHealth)
+{
+    ui->prog_health->setMaximum(mHealth);
+    ui->prog_health->setValue(cHealth);
+
+
 }
 
 /*void MainWindow::on_d20Roll_clicked()
@@ -409,3 +420,10 @@ void MainWindow::on_actionExp_Manager_triggered()
     //this->hide();
 }
 
+
+void MainWindow::on_actionDamage_Manger_triggered()
+{
+    //QString danger = "QProgressBar {background-color: #1d2126; text-align: center; }\n QProgressBar::chunk {background-color: #abc; } ";
+    damManagerWindow->show();
+    //ui->prog_health->setStyleSheet(danger);
+}
