@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
     playerData = new sInterfaceFields();
     expManagerWindow = new ExpManager(this);
     damManagerWindow = new DamageManager(this);
+
+    edtCurrentDice = eDiceTypes::d20;
 }
 
 MainWindow::~MainWindow()
@@ -121,6 +123,8 @@ void MainWindow::uncheck_overrides(Attributes::Attributes exclusion)
     if(exclusion != Attributes::Wisdom) ui->btn_check_ovrrde_wis->setChecked(false);
     if(exclusion != Attributes::Charisma) ui->btn_check_ovrrde_cha->setChecked(false);
 }
+
+
 
 //////////////////////////////////////////////////
 /// Get the state
@@ -426,4 +430,89 @@ void MainWindow::on_actionDamage_Manger_triggered()
     //QString danger = "QProgressBar {background-color: #1d2126; text-align: center; }\n QProgressBar::chunk {background-color: #abc; } ";
     damManagerWindow->show();
     //ui->prog_health->setStyleSheet(danger);
+}
+
+
+void MainWindow::on_btn_dicemod_advntg_clicked()
+{
+    ui->btn_dicemod_dsadvn->setChecked(false);
+}
+
+void MainWindow::on_btn_dicemod_dsadvn_clicked()
+{
+    ui->btn_dicemod_advntg->setChecked(false);
+}
+
+void MainWindow::roll_dice()
+{
+    FNCTN_PTR_ARG lRollType = roll;
+    FNCTN_PTR lDiceType = Dice::d20;
+    quint32 nNumberDice = 10;
+    quint32 nModifier = 0;
+
+    QString qsAddOrDis = "<font>";
+    // Check Advantage
+    if(ui->btn_dicemod_advntg->isChecked())
+    {
+        lRollType = rollAdvantage;
+        qsAddOrDis = "<font color=\"green\">";
+    }
+
+    if(ui->btn_dicemod_dsadvn->isChecked())
+    {
+        lRollType = rollDisadvantage;
+        qsAddOrDis = "<font color=#c00>";
+    }
+
+    // Get Rolling Dice
+    QString qsDiceName = "";
+    switch(edtCurrentDice)
+    {
+    case eDiceTypes::d100:
+        lDiceType = Dice::d100;
+        qsDiceName = "d100";
+        break;
+    case eDiceTypes::d20:
+        lDiceType = Dice::d20;
+        qsDiceName = "d20";
+        break;
+    case eDiceTypes::d12:
+        lDiceType = Dice::d12;
+        qsDiceName = "d12";
+        break;
+    case eDiceTypes::d10:
+        lDiceType = Dice::d10;
+        qsDiceName = "d10";
+        break;
+    case eDiceTypes::d8:
+        lDiceType = Dice::d8;
+        qsDiceName = "d8";
+        break;
+    case eDiceTypes::d6:
+        lDiceType = Dice::d6;
+        qsDiceName = "d6";
+        break;
+    case eDiceTypes::d4:
+        lDiceType = Dice::d4;
+        qsDiceName = "d4";
+        break;
+    case eDiceTypes::d3:
+        lDiceType = Dice::d3;
+        qsDiceName = "d3";
+        break;
+    case eDiceTypes::d2:
+        lDiceType = Dice::d2;
+        qsDiceName = "d2";
+    }
+
+    quint32 nResult = rollMultiWith(nNumberDice, lRollType, lDiceType);
+
+    ui->text_dice_output_log->append(qsAddOrDis + QString::number(nNumberDice) + qsDiceName + "</font>");
+    ui->text_dice_output->append(QString::number(nResult) + "<font color=\"grey\"> + " + QString::number(nModifier) + "</font> = \t" + QString::number(nResult + nModifier));
+}
+
+void MainWindow::on_btn_dice_clear_clicked()
+{
+    ui->text_dice_output->clear();
+    ui->text_dice_output_log->clear();
 }

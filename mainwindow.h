@@ -84,6 +84,24 @@ namespace Attributes {
     };
 }
 
+
+namespace eDiceTypes {
+    enum eDiceTypes
+    {
+        d100,
+        d20,
+        d12,
+        d10,
+        d8,
+        d6,
+        d4,
+        d3,
+        d2,
+
+        TOTAL_DICE_TYPES
+    };
+}
+
 namespace Ui {
 
 class MainWindow;
@@ -177,6 +195,30 @@ private slots:
 
     void on_actionDamage_Manger_triggered();
 
+    void on_btn_dice_d100_clicked();
+
+    void on_btn_dice_d20_clicked();
+
+    void on_btn_dice_d12_clicked();
+
+    void on_btn_dice_d10_clicked();
+
+    void on_btn_dice_d8_clicked();
+
+    void on_btn_dice_d6_clicked();
+
+    void on_btn_dice_d4_clicked();
+
+    void on_btn_dice_d3_clicked();
+
+    void on_btn_dice_d2_clicked();
+
+    void on_btn_dicemod_advntg_clicked();
+
+    void on_btn_dicemod_dsadvn_clicked();
+
+    void on_btn_dice_clear_clicked();
+
 private:
     Ui::MainWindow *ui;
     ExpManager *expManagerWindow;
@@ -195,10 +237,19 @@ private:
     bool bFileDirty;
     QString qsFileName;
 
+    // DiceSelected
+    eDiceTypes::eDiceTypes edtCurrentDice;
+
 
 private:
     // Uncheck buttons
     void uncheck_overrides(Attributes::Attributes exclusion);
+
+    // Uncheck Dice
+    void uncheck_dice(eDiceTypes::eDiceTypes exclusion);
+
+    void roll_dice();
+
 
     // Check if any of the buttons are clicked
     uint8_t get_override_state();

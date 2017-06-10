@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     interfacefields.cpp \
     qsave.cpp \
     expmanager.cpp \
-    damagemanager.cpp
+    damagemanager.cpp \
+    mw_dice.cpp
 
 HEADERS  += mainwindow.h \
     dice.h \
