@@ -24,11 +24,7 @@ namespace Dice
 
 	auto nd20 = [] {return static_cast<uint32_t>(std::floor((distrib(gen) * 10) + 1.f)); };
 
-	auto td20 = [] {return static_cast<uint32_t>(std::ceil(distrib(gen) * 100)); }; // d20*10
-	auto td12 = [] {return static_cast<uint32_t>(std::ceil(distrib(gen) * 60)); }; // d12*10
-	auto td10 = [] {return static_cast<uint32_t>(std::ceil(distrib(gen) * 50)); }; // d10*10
-	auto td8 = [] {return static_cast<uint32_t>(std::ceil(distrib(gen) * 40)); }; // d8*10
-	auto td6 = [] {return static_cast<uint32_t>(std::ceil(distrib(gen) * 30)); }; // d8*10
+	auto td20 = [] {return static_cast<uint32_t>(std::floor( (distrib(gen) * 10) + 1.f) * 100.f); };
 }
 
 #endif

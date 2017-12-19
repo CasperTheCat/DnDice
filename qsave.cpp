@@ -74,10 +74,10 @@ sInterfaceFields *MainWindow::interfaceToFields()
     {
         playerData->qvStats.push_back(ui->spin_stat_str->value());
         playerData->qvStats.push_back(ui->spin_stat_dex->value());
-        playerData->qvStats.push_back( ui->spin_stat_con->value());
-        playerData->qvStats.push_back( ui->spin_stat_int->value());
+        playerData->qvStats.push_back(ui->spin_stat_con->value());
+        playerData->qvStats.push_back(ui->spin_stat_int->value());
         playerData->qvStats.push_back(ui->spin_stat_wis->value());
-        playerData->qvStats.push_back( ui->spin_stat_cha->value());
+        playerData->qvStats.push_back(ui->spin_stat_cha->value());
     }
 
     //

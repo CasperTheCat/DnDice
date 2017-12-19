@@ -1,3 +1,9 @@
+#ifdef _WIN32
+#define _CRT_SECURE_NO_WARNINGS
+#include <windows.h>
+#endif
+
+
 #include <iostream>
 #include <chrono>
 #include <algorithm>
@@ -10,9 +16,18 @@
 #include "../dice.h"
 #include "../dice_functions.h"
 #include <functional>
+#include <mutex>
 #include <unordered_map>
 #include <map>
+#include <thread>
+#include <string>
+
+
 #define ITER 10000000
+#define ITER_STEPPING ITER/10
+
+volatile bool globalStop = false;
+std::mutex mTex;
 
 
 int test_func()
@@ -93,28 +108,21 @@ int test_func()
 }
 
 
-int main(int argc, char **argv)
+void tFunc()
 {
-	int mT = omp_get_max_threads();
-	omp_set_num_threads(mT);
+	// Vars
+	std::map<uint64_t, uint64_t> maps;
+	uint64_t res = 0;
+	uint64_t mins = UINT32_MAX; // Dice should never sum to this!
+	uint64_t maxs = 0;
 
-
-	//int x = test_func();
-
-	// Some informative tests
-	//
-	std::map<uint32_t, uint32_t> maps;
-	uint32_t res = 0;
-	uint32_t mins = UINT32_MAX; // Dice should never sum to this!
-	uint32_t maxs = 0;
-//#pragma omp parallel for schedule(static) reduction(+:res), reduction(+:maxs), reduction(+:mins)
+	// Lifting
 	for (int i = 0; i < ITER; ++i)
 	{
-		uint32_t local = 0;
-		local += rollMulti(3, Dice::td6);
-		//local -= roll(Dice::d3);
+		if (globalStop) return;
 
-		// Lowest Drop
+		uint64_t local = 0;
+		local += rollAdvantage(Dice::td20);
 
 		if (local < mins) mins = local;
 		if (local > maxs) maxs = local;
@@ -122,10 +130,7 @@ int main(int argc, char **argv)
 		maps.emplace(local, maps[local]++);
 	}
 
-	std::cout << "Average result = " << res / float(ITER) 
-		<< "\nMin Result = " << mins
-		<< "\nMax Result = " << maxs
-	<< std::endl;
+
 
 
 	// Percentile THolds
@@ -135,18 +140,69 @@ int main(int argc, char **argv)
 	float uThreshold75th = ITER * 0.75;
 	float uThreshold95th = ITER * 0.95;
 
-	uint32_t uPercentileSum = 0;
+
+	uint64_t uPercentileSum = 0;
 	// Dealing with map!
-	for (auto value_ : maps)
+
 	{
-		//std::cout << value_.first << ":" << value_.second << std::endl;
-		uint32_t uTemp = value_.second;
-		if(uPercentileSum + uTemp >= uThreshold5th && uPercentileSum < uThreshold5th) std::cout << "5th Percentile: " << value_.first << std::endl;
-		if(uPercentileSum + uTemp >= uThreshold25th && uPercentileSum < uThreshold25th) std::cout << "25th Percentile: " << value_.first << std::endl;
-		if(uPercentileSum + uTemp >= uThreshold50th && uPercentileSum < uThreshold50th) std::cout << "50th Percentile: " << value_.first << std::endl;
-		if(uPercentileSum + uTemp >= uThreshold75th && uPercentileSum < uThreshold75th) std::cout << "75th Percentile: " << value_.first << std::endl;
-		if(uPercentileSum + uTemp >= uThreshold95th && uPercentileSum < uThreshold95th) std::cout << "95th Percentile: " << value_.first << std::endl;
-		uPercentileSum += uTemp;
+		std::lock_guard<std::mutex> lck(mTex);
+
+			std::cout << std::endl << std::endl << std::endl << std::endl << std::endl;
+
+		std::cout << "Average result = " << res / float(ITER) * 0.01
+			<< "\nMin Result = " << std::floor(mins * 0.01)
+			<< "\nMax Result = " << std::floor(maxs * 0.01)
+			<< std::endl;
+
+
+		for (auto value_ : maps)
+		{
+			//std::cout << value_.first << ":" << value_.second << std::endl;
+			uint64_t uTemp = value_.second;
+			if (uPercentileSum + uTemp >= uThreshold5th && uPercentileSum < uThreshold5th) std::cout << "5th Percentile: " << value_.first * 0.01 << std::endl;
+			if (uPercentileSum + uTemp >= uThreshold25th && uPercentileSum < uThreshold25th) std::cout << "25th Percentile: " << value_.first * 0.01 << std::endl;
+			if (uPercentileSum + uTemp >= uThreshold50th && uPercentileSum < uThreshold50th) std::cout << "50th Percentile: " << value_.first * 0.01 << std::endl;
+			if (uPercentileSum + uTemp >= uThreshold75th && uPercentileSum < uThreshold75th) std::cout << "75th Percentile: " << value_.first * 0.01 << std::endl;
+			if (uPercentileSum + uTemp >= uThreshold95th && uPercentileSum < uThreshold95th) std::cout << "95th Percentile: " << value_.first * 0.01 << std::endl;
+			uPercentileSum += uTemp;
+		}
+	}
+}
+
+int main(int argc, char **argv)
+{
+
+	// Stack alloc
+	std::thread *tArr[12];
+	
+	for(int i = 0; i < 12; ++i)
+	{
+		tArr[i] = new std::thread(tFunc); // Launch the threads!
+	}
+
+	// Setup loop
+	std::string command;
+	char* part;
+
+	while(true)
+	{
+		getline(std::cin, command);
+		part = strtok(&command[0], " ");
+		if(part && strcmp(part,"exit") == 0)
+		{
+			part = strtok(nullptr, " ");
+			if(!part || strcmp(part,"-f") == 0)
+			{
+				globalStop = true;
+			}
+			// break
+			break;
+		}
+	} 
+
+	for (int i = 0; i < 12; ++i)
+	{
+		tArr[i]->join();
 	}
 
 

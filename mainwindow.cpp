@@ -447,7 +447,7 @@ void MainWindow::roll_dice()
 {
     FNCTN_PTR_ARG lRollType = roll;
     FNCTN_PTR lDiceType = Dice::d20;
-    quint32 nNumberDice = 10;
+    quint32 nNumberDice = 1;
     quint32 nModifier = 0;
 
     QString qsAddOrDis = "<font>";
